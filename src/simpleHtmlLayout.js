@@ -1,3 +1,5 @@
+const { txt } = require("./testtxt");
+
 const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
 const templateAreaReg = /(?<=<template>)[\s\S]*(?=<\/template>)/g;
 const widthIntStyleReg = /(?<=["'\s])w-\d+(?=["'\s])/g;
@@ -29,4 +31,4 @@ function transformVueFile(source) {
   return res;
 }
 
-module.exports = transformVueFile;
+console.log(transformVueFile(txt));

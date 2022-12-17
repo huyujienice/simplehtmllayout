@@ -4,7 +4,7 @@
   "description": "a simple html layout tools for quick build vue project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./src/simplehtmllayout"
   },
   "repository": {
     "type": "git",
