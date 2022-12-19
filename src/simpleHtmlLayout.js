@@ -15,8 +15,9 @@ export function transformVueFile(source) {
 function handleWidthFloatStyle(str, mid) {
   const res = str.replace(widthFloatStyleReg, (match) => {
     if (!mid.hasOwnProperty("widthFloatStyleArr")) mid.widthFloatStyleArr = [];
-    mid.widthFloatStyleArr.push(match);
-    return transformHalfPointClass(match);
+    let r = transformHalfPointClass(match);
+    mid.widthFloatStyleArr.push(r);
+    return r;
   });
   return res;
 }
