@@ -1,4 +1,4 @@
-const { txt } = require("./testtxt");
+import { txt1 } from "./testtxt";
 
 const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
 const templateAreaReg = /(?<=<template>)[\s\S]*(?=<\/template>)/g;
@@ -31,4 +31,4 @@ function transformVueFile(source) {
   return res;
 }
 
-console.log(transformVueFile(txt));
+console.log(transformVueFile(txt1));

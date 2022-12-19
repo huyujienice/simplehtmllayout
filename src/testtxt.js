@@ -1,4 +1,4 @@
-const txt = `<template>
+export const txt1 = `<template>
 <div>
   <PageCommonFrame
     @onPageScroll="onPageScroll"
@@ -424,7 +424,3 @@ transform: translateX(0);
 }
 </style>
 `;
-
-module.exports = {
-  txt,
-};
