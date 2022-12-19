@@ -22,7 +22,7 @@ export const txt1 = `<template>
             @goCategoryList="goCategoryList"
             ref="raceScheduleRef"
           />
-          <div class="course_bg"></div>
+          <div class="course_bg w-1.2 w-3.1 w3.2 ww3.3 w--3.4 w-w-3.5 ww--3.6 w-0.0 w-0 w-.1 "></div>
         </div>
         <freeList
           :userSelectFreeTab="state.userSelectFreeTab"
@@ -47,7 +47,7 @@ export const txt1 = `<template>
         <!-- </Popup> -->
         <div class="trading_area_logo">
           <!-- <img
-            class="logo"
+            class="logo w-375 w-4.1"
             src="https://images.lssqpay.com/app/h5/groupfoodonlineactivity/worldcupList/trading_area_logo.png"
             alt=""
           /> -->
