@@ -14,34 +14,38 @@ export function transformVueFile(source) {
 
 function handleWidthFloatStyle(str, mid) {
   const res = str.replace(widthFloatStyleReg, (match) => {
-    if (!mid.hasOwnProperty("widthFloatStyleArr")) mid.widthFloatStyleArr = [];
+    if (!mid.hasOwnProperty("widthFloatStyleSet"))
+      mid.widthFloatStyleSet = new Set();
     let r = transformHalfPointClass(match);
-    mid.widthFloatStyleArr.push(r);
+    mid.widthFloatStyleSet.add(r);
     return r;
   });
   return res;
 }
 function handleWidthIntSyle(str, mid) {
   const res = str.replace(widthIntStyleReg, (match) => {
-    if (!mid.hasOwnProperty("widthIntStyleArr")) mid.widthIntStyleArr = [];
-    mid.widthIntStyleArr.push(match);
+    if (!mid.hasOwnProperty("widthIntStyleSet"))
+      mid.widthIntStyleSet = new Set();
+    mid.widthIntStyleSet.add(match);
     return match;
   });
   return res;
 }
-function handleHeightFloatStyle(str,mid){
+function handleHeightFloatStyle(str, mid) {
   const res = str.replace(heightFloatStyleReg, (match) => {
-    if (!mid.hasOwnProperty("heightFloatStyleArr")) mid.heightFloatStyleArr = [];
+    if (!mid.hasOwnProperty("heightFloatStyleSet"))
+      mid.heightFloatStyleSet = new Set();
     let r = transformHalfPointClass(match);
-    mid.heightFloatStyleArr.push(r);
+    mid.heightFloatStyleSet.add(r);
     return r;
   });
-  return res; 
+  return res;
 }
 function handleHeightIntSyle(str, mid) {
   const res = str.replace(heightIntStyleReg, (match) => {
-    if (!mid.hasOwnProperty("heightIntStyleArr")) mid.heightIntStyleArr = [];
-    mid.heightIntStyleArr.push(match);
+    if (!mid.hasOwnProperty("heightIntStyleSet"))
+      mid.heightIntStyleSet = new Set();
+    mid.heightIntStyleSet.add(match);
     return match;
   });
   return res;
@@ -62,7 +66,6 @@ function transformTemplate(str, mid) {
   });
   return r;
 }
-
 
 function transformStyle(str, mid) {
   console.log(mid);
