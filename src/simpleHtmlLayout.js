@@ -56,6 +56,36 @@ function transformHalfPointClass(str) {
   return r;
 }
 
+function getWidthAndHeightClassValues(res) {
+  const obj = res.split("-");
+  let keys = `width`;
+  if (obj[0] === "h") keys = `height`;
+  let values = obj[1];
+  values = values.replace(/p/, ".");
+  values = `${values}px;`;
+  const r = `.${res} {\n${keys}:${values}\n}`;
+  return r;
+}
+
+function addWidthAndHeightClass(str, mid) {
+  let r = str;
+  const arr = [
+    "widthFloatStyleSet",
+    "widthIntStyleSet",
+    "heightFloatStyleSet",
+    "heightIntStyleSet",
+  ];
+  arr.forEach((item) => {
+    if (mid[item]?.size) {
+      mid[item].forEach((it) => {
+        const res = getWidthAndHeightClassValues(it);
+        r = `${r}\n${res}\n`;
+      });
+    }
+  });
+  return r;
+}
+
 function transformTemplate(str, mid) {
   const r = str.replace(templateAreaReg, (m) => {
     let r1 = handleWidthFloatStyle(m, mid);
@@ -68,6 +98,9 @@ function transformTemplate(str, mid) {
 }
 
 function transformStyle(str, mid) {
-  console.log(mid);
-  return str;
+  const r = str.replace(styleAreaReg, (m) => {
+    let r1 = addWidthAndHeightClass(m, mid);
+    return r1;
+  });
+  return r;
 }
