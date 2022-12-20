@@ -52,8 +52,14 @@ function handleHeightIntSyle(str, mid) {
 }
 
 function transformHalfPointClass(str) {
-  let r = str.replace(/\./, "p");
+  let r = str.replace(/\./, "_");
   return r;
+}
+
+function devLog(str) {
+  console.log(`-----`);
+  console.log(str);
+  console.log(`-----`);
 }
 
 function getWidthAndHeightClassValues(res) {
@@ -61,9 +67,10 @@ function getWidthAndHeightClassValues(res) {
   let keys = `width`;
   if (obj[0] === "h") keys = `height`;
   let values = obj[1];
-  values = values.replace(/p/, ".");
+  values = values.replace(/_/, ".");
+  values = parseFloat(values);
   values = `${values}px;`;
-  const r = `.${res} {\n${keys}:${values}\n}`;
+  const r = `.${res} {\n  ${keys}:${values}\n}`;
   return r;
 }
 
@@ -98,8 +105,10 @@ function transformTemplate(str, mid) {
 }
 
 function transformStyle(str, mid) {
+  devLog(mid);
   const r = str.replace(styleAreaReg, (m) => {
     let r1 = addWidthAndHeightClass(m, mid);
+    devLog(r1);
     return r1;
   });
   return r;

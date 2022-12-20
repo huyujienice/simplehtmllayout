@@ -45,9 +45,9 @@ export const txt1 = `<template>
         />
         <!-- <Popup :show="state.showUserNumberView" @click-overlay="show = false"> -->
         <!-- </Popup> -->
-        <div class="trading_area_logo">
+        <div class="trading_area_logo w-88p8 w-03 h-3.345 w-123.456 w-0 w-00">
           <!-- <img
-            class="logo w-375 w-4.1"
+            class="logo w-375 w-4.1z"
             src="https://images.lssqpay.com/app/h5/groupfoodonlineactivity/worldcupList/trading_area_logo.png"
             alt=""
           /> -->
