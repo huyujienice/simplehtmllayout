@@ -29,6 +29,23 @@ function handleWidthIntSyle(str, mid) {
   });
   return res;
 }
+function handleHeightFloatStyle(str,mid){
+  const res = str.replace(heightFloatStyleReg, (match) => {
+    if (!mid.hasOwnProperty("heightFloatStyleArr")) mid.heightFloatStyleArr = [];
+    let r = transformHalfPointClass(match);
+    mid.heightFloatStyleArr.push(r);
+    return r;
+  });
+  return res; 
+}
+function handleHeightIntSyle(str, mid) {
+  const res = str.replace(heightIntStyleReg, (match) => {
+    if (!mid.hasOwnProperty("heightIntStyleArr")) mid.heightIntStyleArr = [];
+    mid.heightIntStyleArr.push(match);
+    return match;
+  });
+  return res;
+}
 
 function transformHalfPointClass(str) {
   let r = str.replace(/\./, "p");
@@ -39,10 +56,13 @@ function transformTemplate(str, mid) {
   const r = str.replace(templateAreaReg, (m) => {
     let r1 = handleWidthFloatStyle(m, mid);
     r1 = handleWidthIntSyle(r1, mid);
+    r1 = handleHeightFloatStyle(r1, mid);
+    r1 = handleHeightIntSyle(r1, mid);
     return r1;
   });
   return r;
 }
+
 
 function transformStyle(str, mid) {
   console.log(mid);
