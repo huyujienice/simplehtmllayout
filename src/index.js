@@ -1,4 +1,4 @@
 import { txt1 } from "./testtxt";
-import { transformVueFile } from "./core/index";
-
-transformVueFile(txt1);
+import { default as transformVueFile } from "./core/index";
+const r = transformVueFile(txt1);
+console.log(r);

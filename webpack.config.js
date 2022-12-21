@@ -6,6 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "simplehtmllayout.js",
+    globalObject: "this",
     library: {
       name: "simplehtmllayout",
       type: "umd",
