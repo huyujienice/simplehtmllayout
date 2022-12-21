@@ -2,7 +2,7 @@
   "name": "simplehtmllayout",
   "version": "1.0.0",
   "description": "a simple html layout tools for quick build vue project",
-  "main": "index.js",
+  "main": "./dist/simplehtmllayout.js",
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack",
