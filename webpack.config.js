@@ -1,38 +1,14 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
-  mode: "development",
+  entry: './src/core/index.js',
+  mode: "production",
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-  devtool: "inline-source-map",
-  devServer: {
-    static: "./dist",
-    port: 8088,
-    client: {
-      overlay: true,
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'simplehtmllayout.js',
+    library: {
+      name: 'simplehtmllayout',
+      type: 'umd',
     },
   },
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
-        },
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Development",
-    }),
-  ],
 };
