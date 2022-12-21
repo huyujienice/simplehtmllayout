@@ -101,10 +101,8 @@ function transformTemplate(str, mid) {
 }
 
 function transformStyle(str, mid) {
-  console.log(mid);
   const r = str.replace(styleAreaReg, m => {
     let r1 = addWidthAndHeightClass(m, mid);
-    console.log(r1);
     return r1;
   });
   return r;
