@@ -7,7 +7,7 @@ const heightFloatStyleReg = /(?<=["'\s])h-\d+\.\d+(?=["'\s])/g;
 
 export function transformWidthAndHeight(str, mid = {}) {
   let r = transformTemplate(str, mid);
-  r = transformStyle(str, mid);
+  r = transformStyle(r, mid);
   return r;
 }
 
@@ -19,6 +19,7 @@ function handleWidthFloatStyle(str, mid) {
     mid.widthFloatStyleSet.add(r);
     return r;
   });
+  // console.log(`handleWidthFloatStyle=${res}`);
   return res;
 }
 
@@ -29,6 +30,7 @@ function handleWidthIntSyle(str, mid) {
     mid.widthIntStyleSet.add(match);
     return match;
   });
+  // console.log(`handleWidthIntSyle=${res}`);
   return res;
 }
 
@@ -40,6 +42,7 @@ function handleHeightFloatStyle(str, mid) {
     mid.heightFloatStyleSet.add(r);
     return r;
   });
+  // console.log(`handleHeightFloatStyle=${res}`);
   return res;
 }
 
@@ -50,6 +53,7 @@ function handleHeightIntSyle(str, mid) {
     mid.heightIntStyleSet.add(match);
     return match;
   });
+  // console.log(`handleHeightIntSyle=${res}`);
   return res;
 }
 
@@ -95,6 +99,7 @@ function transformTemplate(str, mid) {
     r1 = handleWidthIntSyle(r1, mid);
     r1 = handleHeightFloatStyle(r1, mid);
     r1 = handleHeightIntSyle(r1, mid);
+    // console.log(`transformTemplate=${r1}`);
     return r1;
   });
   return r;

@@ -6,7 +6,7 @@ export const txt1 = `<template>
     <div class="list_main" id="scrollListMian">
       <p v-for="n in 20" :key="n">{{ n }}</p>
     </div>
-    <div class="w-100 h-100.1 test1"></div>
+    <div class="w-100.1 h-100.1 test1"></div>
   </div>
 </PageCommonFrame>
 </template>
