@@ -1,4 +1,4 @@
 import { txt1 } from "./testtxt";
-import { transformVueFile } from "./simpleHtmlLayout";
+import { transformVueFile } from "./core/index";
 
 transformVueFile(txt1);

@@ -1,15 +1,14 @@
-const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
-const templateAreaReg = /(?<=<template>)[\s\S]*(?=<\/template>)/g;
+import { styleAreaReg, templateAreaReg } from "../common";
+
 const widthIntStyleReg = /(?<=["'\s])w-\d+(?=["'\s])/g;
 const widthFloatStyleReg = /(?<=["'\s])w-\d+\.\d+(?=["'\s])/g;
 const heightIntStyleReg = /(?<=["'\s])h-\d+(?=["'\s])/g;
 const heightFloatStyleReg = /(?<=["'\s])h-\d+\.\d+(?=["'\s])/g;
 
-export function transformVueFile(source) {
-  const midParams = {};
-  let res = transformTemplate(source, midParams);
-  res = transformStyle(res, midParams);
-  return res;
+export function transformWidthAndHeight(str, mid = {}) {
+  let r = transformTemplate(str, mid);
+  r = transformStyle(str, mid);
+  return r;
 }
 
 function handleWidthFloatStyle(str, mid) {
@@ -56,12 +55,6 @@ function transformHalfPointClass(str) {
   return r;
 }
 
-function devLog(str) {
-  console.log(`-----`);
-  console.log(str);
-  console.log(`-----`);
-}
-
 function getWidthAndHeightClassValues(res) {
   const obj = res.split("-");
   let keys = `width`;
@@ -105,10 +98,10 @@ function transformTemplate(str, mid) {
 }
 
 function transformStyle(str, mid) {
-  devLog(mid);
+  console.log(mid);
   const r = str.replace(styleAreaReg, (m) => {
     let r1 = addWidthAndHeightClass(m, mid);
-    devLog(r1);
+    console.log(r1);
     return r1;
   });
   return r;

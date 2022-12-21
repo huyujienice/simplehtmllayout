@@ -5,7 +5,8 @@ export const txt1 = `<template>
     @onReachBottom="onReachBottom"
     @onPullDownRefresh="onPullDownRefresh"
   >
-    <div class="home">
+    <div class="w-.5 h-375
+    w-55 w-w-4 w-4_4 w-44..4">
       <div class="home-wrapper">
         <bannerHead
           @controlUserNumberView="controlUserNumberView"
