@@ -12,7 +12,7 @@ export function transformWidthAndHeight(str, mid = {}) {
 }
 
 function handleWidthFloatStyle(str, mid) {
-  const res = str.replace(widthFloatStyleReg, (match) => {
+  const res = str.replace(widthFloatStyleReg, match => {
     if (!mid.hasOwnProperty("widthFloatStyleSet"))
       mid.widthFloatStyleSet = new Set();
     let r = transformHalfPointClass(match);
@@ -21,8 +21,9 @@ function handleWidthFloatStyle(str, mid) {
   });
   return res;
 }
+
 function handleWidthIntSyle(str, mid) {
-  const res = str.replace(widthIntStyleReg, (match) => {
+  const res = str.replace(widthIntStyleReg, match => {
     if (!mid.hasOwnProperty("widthIntStyleSet"))
       mid.widthIntStyleSet = new Set();
     mid.widthIntStyleSet.add(match);
@@ -30,8 +31,9 @@ function handleWidthIntSyle(str, mid) {
   });
   return res;
 }
+
 function handleHeightFloatStyle(str, mid) {
-  const res = str.replace(heightFloatStyleReg, (match) => {
+  const res = str.replace(heightFloatStyleReg, match => {
     if (!mid.hasOwnProperty("heightFloatStyleSet"))
       mid.heightFloatStyleSet = new Set();
     let r = transformHalfPointClass(match);
@@ -40,8 +42,9 @@ function handleHeightFloatStyle(str, mid) {
   });
   return res;
 }
+
 function handleHeightIntSyle(str, mid) {
-  const res = str.replace(heightIntStyleReg, (match) => {
+  const res = str.replace(heightIntStyleReg, match => {
     if (!mid.hasOwnProperty("heightIntStyleSet"))
       mid.heightIntStyleSet = new Set();
     mid.heightIntStyleSet.add(match);
@@ -75,9 +78,9 @@ function addWidthAndHeightClass(str, mid) {
     "heightFloatStyleSet",
     "heightIntStyleSet",
   ];
-  arr.forEach((item) => {
+  arr.forEach(item => {
     if (mid[item]?.size) {
-      mid[item].forEach((it) => {
+      mid[item].forEach(it => {
         const res = getWidthAndHeightClassValues(it);
         r = `${r}\n${res}\n`;
       });
@@ -87,7 +90,7 @@ function addWidthAndHeightClass(str, mid) {
 }
 
 function transformTemplate(str, mid) {
-  const r = str.replace(templateAreaReg, (m) => {
+  const r = str.replace(templateAreaReg, m => {
     let r1 = handleWidthFloatStyle(m, mid);
     r1 = handleWidthIntSyle(r1, mid);
     r1 = handleHeightFloatStyle(r1, mid);
@@ -99,7 +102,7 @@ function transformTemplate(str, mid) {
 
 function transformStyle(str, mid) {
   console.log(mid);
-  const r = str.replace(styleAreaReg, (m) => {
+  const r = str.replace(styleAreaReg, m => {
     let r1 = addWidthAndHeightClass(m, mid);
     console.log(r1);
     return r1;
