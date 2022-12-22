@@ -1,9 +1,7 @@
 import { styleAreaReg, templateAreaReg } from "../common";
 
-const widthIntStyleReg = /(?<=["'\s])w-\d+(?=["'\s])/g;
-const widthFloatStyleReg = /(?<=["'\s])w-\d+\.\d+(?=["'\s])/g;
-const heightIntStyleReg = /(?<=["'\s])h-\d+(?=["'\s])/g;
-const heightFloatStyleReg = /(?<=["'\s])h-\d+\.\d+(?=["'\s])/g;
+const widthStyleReg = /(?<=["'\s])w-(\d+|(\d+\.\d+))(?=["'\s])/g;
+const heightStyleReg = /(?<=["'\s])h-(\d+|(\d+\.\d+))(?=["'\s])/g;
 
 export function transformWidthAndHeight(str, mid = {}) {
   let r = transformTemplate(str, mid);
@@ -11,49 +9,25 @@ export function transformWidthAndHeight(str, mid = {}) {
   return r;
 }
 
-function handleWidthFloatStyle(str, mid) {
-  const res = str.replace(widthFloatStyleReg, match => {
-    if (!mid.hasOwnProperty("widthFloatStyleSet"))
-      mid.widthFloatStyleSet = new Set();
+function hanlleWidthStyle(str, mid) {
+  const res = str.replace(widthStyleReg, match => {
+    if (!mid.hasOwnProperty("widthStyleSet")) mid.widthStyleSet = new Set();
     let r = transformHalfPointClass(match);
-    mid.widthFloatStyleSet.add(r);
+    mid.widthStyleSet.add(r);
     return r;
   });
-  // console.log(`handleWidthFloatStyle=${res}`);
+  // console.log(`hanlleWidthStyle=${res}`);
   return res;
 }
 
-function handleWidthIntSyle(str, mid) {
-  const res = str.replace(widthIntStyleReg, match => {
-    if (!mid.hasOwnProperty("widthIntStyleSet"))
-      mid.widthIntStyleSet = new Set();
-    mid.widthIntStyleSet.add(match);
-    return match;
-  });
-  // console.log(`handleWidthIntSyle=${res}`);
-  return res;
-}
-
-function handleHeightFloatStyle(str, mid) {
-  const res = str.replace(heightFloatStyleReg, match => {
-    if (!mid.hasOwnProperty("heightFloatStyleSet"))
-      mid.heightFloatStyleSet = new Set();
+function hanlleHeightStyle(str, mid) {
+  const res = str.replace(heightStyleReg, match => {
+    if (!mid.hasOwnProperty("heightStyleSet")) mid.heightStyleSet = new Set();
     let r = transformHalfPointClass(match);
-    mid.heightFloatStyleSet.add(r);
+    mid.widthStyleSet.add(r);
     return r;
   });
-  // console.log(`handleHeightFloatStyle=${res}`);
-  return res;
-}
-
-function handleHeightIntSyle(str, mid) {
-  const res = str.replace(heightIntStyleReg, match => {
-    if (!mid.hasOwnProperty("heightIntStyleSet"))
-      mid.heightIntStyleSet = new Set();
-    mid.heightIntStyleSet.add(match);
-    return match;
-  });
-  // console.log(`handleHeightIntSyle=${res}`);
+  // console.log(`hanlleHeightStyle=${res}`);
   return res;
 }
 
@@ -76,12 +50,7 @@ function getWidthAndHeightClassValues(res) {
 
 function addWidthAndHeightClass(str, mid) {
   let r = str;
-  const arr = [
-    "widthFloatStyleSet",
-    "widthIntStyleSet",
-    "heightFloatStyleSet",
-    "heightIntStyleSet",
-  ];
+  const arr = ["widthStyleSet", "heightStyleSet"];
   arr.forEach(item => {
     if (mid[item]?.size) {
       mid[item].forEach(it => {
@@ -95,11 +64,8 @@ function addWidthAndHeightClass(str, mid) {
 
 function transformTemplate(str, mid) {
   const r = str.replace(templateAreaReg, m => {
-    let r1 = handleWidthFloatStyle(m, mid);
-    r1 = handleWidthIntSyle(r1, mid);
-    r1 = handleHeightFloatStyle(r1, mid);
-    r1 = handleHeightIntSyle(r1, mid);
-    // console.log(`transformTemplate=${r1}`);
+    let r1 = hanlleWidthStyle(m, mid);
+    r1 = hanlleHeightStyle(r1, mid);
     return r1;
   });
   return r;
