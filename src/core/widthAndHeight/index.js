@@ -1,4 +1,8 @@
-import { styleAreaReg, templateAreaReg } from "../common";
+import {
+  styleAreaReg,
+  templateAreaReg,
+  transformHalfPointClass,
+} from "../common";
 
 const widthStyleReg = /(?<=["'\s])w-(\d+|(\d+\.\d+))(?=["'\s])/g;
 const heightStyleReg = /(?<=["'\s])h-(\d+|(\d+\.\d+))(?=["'\s])/g;
@@ -24,16 +28,11 @@ function hanlleHeightStyle(str, mid) {
   const res = str.replace(heightStyleReg, match => {
     if (!mid.hasOwnProperty("heightStyleSet")) mid.heightStyleSet = new Set();
     let r = transformHalfPointClass(match);
-    mid.widthStyleSet.add(r);
+    mid.heightStyleSet.add(r);
     return r;
   });
   // console.log(`hanlleHeightStyle=${res}`);
   return res;
-}
-
-function transformHalfPointClass(str) {
-  let r = str.replace(/\./, "_");
-  return r;
 }
 
 function getWidthAndHeightClassValues(res) {
