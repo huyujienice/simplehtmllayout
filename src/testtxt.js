@@ -7,7 +7,7 @@ export const txt1 = `<template simplehtmllayout>
       <p v-for="n in 20" :key="n">{{ n }}</p>
     </div>
     <template>
-      <div class="w-100.2 h-100.1 test1"></div>
+      <div class="w-100.2 h-100.1 test1 relative-l-30.1 relative-b-44.44"></div>
     </template>
     <div class="w-200 h-200.1"></div>
   </div>

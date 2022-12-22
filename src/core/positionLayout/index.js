@@ -45,7 +45,6 @@ function handleMatchRegTemplate(str, reg, mid) {
     mid.positionLayoutSet.add(r);
     return r;
   });
-  // console.log(`handleMatchRegTemplate=${res}`);
   return res;
 }
 
@@ -57,7 +56,7 @@ function getPositionClassValues(res) {
   one = exchangeDirectionWords(one);
   two = two.replace(/_/, ".");
   two = parseFloat(two);
-  let r = `.$res {\npostion:${zero};\n${one}:${two};z-index:1;\n}`;
+  let r = `.${res} {\npostion:${zero};\n${one}:${two}px;\nz-index:1;\n}`;
   return r;
 }
 
@@ -111,6 +110,6 @@ function exchangeDirectionWords(str) {
 function getPositionLayoutReg(position = "relative", direction = "top") {
   let one = position,
     two = exchangeDirectionWords(direction);
-  const regStr = `(?<=["'\s])${one}-${two}-(\d+|(\d+\.\d+))(?=["'\s])`;
+  const regStr = `(?<=["'\\s])${one}-${two}-(\\d+|(\\d+\.\\d+))(?=["'\\s])`;
   return new RegExp(regStr, "g");
 }
