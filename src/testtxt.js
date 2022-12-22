@@ -1,4 +1,4 @@
-export const txt1 = `<template>
+export const txt1 = `<template simplehtmllayout>
 <PageCommonFrame @onPullDownRefresh="onPullDownRefresh">
   <div class="home">
     <h1>preload page</h1>
@@ -6,7 +6,10 @@ export const txt1 = `<template>
     <div class="list_main" id="scrollListMian">
       <p v-for="n in 20" :key="n">{{ n }}</p>
     </div>
-    <div class="w-100.1 h-100.1 test1"></div>
+    <template>
+      <div class="w-100.2 h-100.1 test1"></div>
+    </template>
+    <div class="w-200 h-200.1"></div>
   </div>
 </PageCommonFrame>
 </template>
@@ -47,6 +50,9 @@ p {
 }
 .test1 {
 background-color: aqua;
+}
+.h-100_1 {
+height: 100px;
 }
 </style>
 
