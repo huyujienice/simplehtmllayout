@@ -2,6 +2,7 @@ import {
   styleAreaReg,
   templateAreaReg,
   transformHalfPointClass,
+  transformHalfPointBack,
 } from "../common";
 
 const widthStyleReg = /(?<=["'\s])w-(\d+|(\d+\.\d+))(?=["'\s])/g;
@@ -40,10 +41,10 @@ function getWidthAndHeightClassValues(res) {
   let keys = `width`;
   if (obj[0] === "h") keys = `height`;
   let values = obj[1];
-  values = values.replace(/_/, ".");
+  values = transformHalfPointBack(values);
   values = parseFloat(values);
   values = `${values}px;`;
-  const r = `.${res} {\n  ${keys}:${values}\n}`;
+  const r = `.${res} {\n${keys}:${values}\n}`;
   return r;
 }
 

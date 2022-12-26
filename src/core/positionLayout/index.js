@@ -2,12 +2,12 @@ import {
   styleAreaReg,
   templateAreaReg,
   transformHalfPointClass,
+  transformHalfPointBack,
 } from "../common";
 
-// const relativeTopStyleReg = /(?<=["'\s])relative-t-(\d+|(\d+\.\d+))(?=["'\s])/g;
+// const relativeTopStyleReg = /(?<=["'\s])(-(\\d+|(\\d+\.\\d+))){0,5}(?=["'\s])/g;
 
 const positionLayoutArr = ["relative", "absolute", "fixed", "sticky"];
-const positionDirectionArr = ["top", "right", "bottom", "left"];
 
 export function transformPositionLayout(str, mid = {}) {
   let r = transformPositionLayoutTemplate(str, mid);
@@ -19,10 +19,8 @@ function transformPositionLayoutTemplate(str, mid) {
   const r = str.replace(templateAreaReg, m => {
     let r1 = m;
     positionLayoutArr.forEach(p => {
-      positionDirectionArr.forEach(d => {
-        const reg = getPositionLayoutReg(p, d);
-        r1 = handleMatchRegTemplate(r1, reg, mid);
-      });
+      const reg = getPositionLayoutReg(p);
+      r1 = handleMatchRegTemplate(r1, reg, mid);
     });
     return r1;
   });
@@ -49,14 +47,20 @@ function handleMatchRegTemplate(str, reg, mid) {
 }
 
 function getPositionClassValues(res) {
-  const obj = res.split("-");
-  let zero = obj[0],
-    one = obj[1],
-    two = obj[2];
-  one = exchangeDirectionWords(one);
-  two = two.replace(/_/, ".");
-  two = parseFloat(two);
-  let r = `.${res} {\npostion:${zero};\n${one}:${two}px;\nz-index:1;\n}`;
+  const arr = res.split("-");
+  let styles;
+  if (arr.length > 0) styles = `\nposition:${arr[0]};\n`;
+  if (arr.length > 1 && arr[1] != 0)
+    styles = `${styles}top:${transformHalfPointBack(arr[1])}px;\n`;
+  if (arr.length > 2 && arr[2] != 0)
+    styles = `${styles}right:${transformHalfPointBack(arr[2])}px;\n`;
+  if (arr.length > 3 && arr[3] != 0)
+    styles = `${styles}bottom:${transformHalfPointBack(arr[3])}px;\n`;
+  if (arr.length > 4 && arr[4] != 0)
+    styles = `${styles}left:${transformHalfPointBack(arr[4])}px;\n`;
+  if (arr.length > 5 && arr[5] != 0)
+    styles = `${styles}z-index:${transformHalfPointBack(arr[5])};\n`;
+  const r = `.${res} {${styles}}`;
   return r;
 }
 
@@ -74,42 +78,18 @@ function addPositionClass(str, mid) {
   return r;
 }
 
-function exchangeDirectionWords(str) {
-  let r = null;
-  switch (str) {
-    case "t":
-      r = "top";
-      break;
-    case "top":
-      r = "t";
-      break;
-    case "r":
-      r = "right";
-      break;
-    case "right":
-      r = "r";
-      break;
-    case "b":
-      r = "bottom";
-      break;
-    case "bottom":
-      r = "b";
-      break;
-    case "l":
-      r = "left";
-      break;
-    case "left":
-      r = "l";
-      break;
-    default:
-      break;
-  }
-  return r;
-}
-
-function getPositionLayoutReg(position = "relative", direction = "top") {
-  let one = position,
-    two = exchangeDirectionWords(direction);
-  const regStr = `(?<=["'\\s])${one}-${two}-(\\d+|(\\d+\.\\d+))(?=["'\\s])`;
+/**
+ * position
+ * position-top
+ * position-top-right
+ * position-top-right-bottom
+ * position-top-right-bottom-left
+ * position-top-right-bottom-left-zindex
+ *
+ * @param {string} [position="relative"]
+ * @return {RegExp}
+ */
+function getPositionLayoutReg(position = "relative") {
+  const regStr = `(?<=["'\\s])${position}(-(\\d+|(\\d+\.\\d+))){0,5}(?=["'\\s])`;
   return new RegExp(regStr, "g");
 }
