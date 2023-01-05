@@ -113,10 +113,10 @@ position-top-right-bottom-left-zindex样式，
 例如：{position:relative;top:number1px;right:number2px;bottom:number3px;left:number4px;z-index:number5}  
 
 5.支持margin和padding快速布局,支持class属性  
-margin-number1,  
-margin-number1-number2,  
-margin-number1-number2-number3,  
-margin-number1-number2-number3-number4,  
+margin-number1    
+margin-number1-number2  
+margin-number1-number2-number3  
+margin-number1-number2-number3-number4    
 分别对应的属性  
 {margin:number1px;}  
 {margin:number1px number2px;}  
