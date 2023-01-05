@@ -1,5 +1,5 @@
 ## 简介
-vue-cli-plugin-simplehtmllayout希望对使用Vue CLI工具进行开发的人士，能够进行静态页面的快速布局，达到提高开发效率的目的  
+simplehtmllayout希望对使用Vue CLI工具进行开发的人士，能够进行静态页面的快速布局，达到提高开发效率的目的  
 
 ## 举例
 .vue文件内容如下
@@ -80,9 +80,9 @@ padding:10px 20px 30px 40px;
 </style>
 ```
 ## 如何安装
-1.使用npm安装vue-cli-plugin-simplehtmllayout  
+1.使用npm安装simplehtmllayout  
 ```
-npm install vue-cli-plugin-simplehtmllayout --save-dev
+npm install simplehtmllayout --save-dev
 ```
 
 ## 如何使用
@@ -93,7 +93,7 @@ npm install vue-cli-plugin-simplehtmllayout --save-dev
       .rule("vue")
       .test(/\.vue$/)
       .use("simpleHtmlLayout")
-      .loader("vue-cli-plugin-simplehtmllayout")
+      .loader("simplehtmllayout")
       .end();
   },
 ```  
