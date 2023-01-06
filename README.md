@@ -80,39 +80,27 @@ padding:10px 20px 30px 40px;
 </style>
 ```
 ## 如何安装
-1.使用npm安装simplehtmllayout  
+1.对于使用Vue CLI构建的项目来说,直接在项目根目录执行命令  
 ```
-npm install simplehtmllayout --save-dev
-```
-
-## 如何使用
-1.在vue.config.js文件内添加以下内容  
-```
-  chainWebpack: config => {
-    config.module
-      .rule("vue")
-      .test(/\.vue$/)
-      .use("simpleHtmlLayout")
-      .loader("simplehtmllayout")
-      .end();
-  },
+vue add vue-cli-plugin-simplehtmllayout
 ```  
 
-2.在.vue文件内任意区域添加**simplehtmllayout**单词，过滤器会对文件内容进行过滤，含有**simplehtmllayout**字样的文件会进行快速布局   
+## 如何使用
+1.在.vue文件内任意区域添加**simplehtmllayout**单词，过滤器会对文件内容进行过滤，含有**simplehtmllayout**字样的文件会进行快速布局   
 
-3.支持width,height样式快速布局,支持class属性  
+2.支持width,height样式快速布局,支持class属性  
 width-number1,height-number2  
 对应的属性为  
 {width:number1px;}    
 {height:number2px;}  
 
-4.支持position样式快速布局,position支持**relative**,**absolute**,**fixed**,**sticky**;支持class属性  
+3.支持position样式快速布局,position支持**relative**,**absolute**,**fixed**,**sticky**;支持class属性  
 position-number1-number2-number3-number4-number5,  
 number若为0则不进行样式填写,对应的属性为  
 position-top-right-bottom-left-zindex样式，  
 例如：{position:relative;top:number1px;right:number2px;bottom:number3px;left:number4px;z-index:number5}  
 
-5.支持margin和padding快速布局,支持class属性  
+4.支持margin和padding快速布局,支持class属性  
 margin-number1    
 margin-number1-number2  
 margin-number1-number2-number3  
