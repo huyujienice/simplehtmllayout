@@ -3,6 +3,7 @@ import {
   templateAreaReg,
   transformHalfPointClass,
   transformHalfPointBack,
+  cssUnit,
 } from "../common";
 
 const positionLayoutArr = ["margin", "padding"];
@@ -49,26 +50,28 @@ function getPositionClassValues(res) {
   let styles;
   switch (arr.length) {
     case 2:
-      styles = `${arr[0]}:${transformHalfPointBack(arr[1])}px;`;
+      styles = `${arr[0]}:${transformHalfPointBack(arr[1])}${cssUnit};`;
       break;
     case 3:
       styles = `${arr[0]}:${transformHalfPointBack(
         arr[1],
-      )}px ${transformHalfPointBack(arr[2])}px;`;
+      )}${cssUnit} ${transformHalfPointBack(arr[2])}${cssUnit};`;
       break;
     case 4:
       styles = `${arr[0]}:${transformHalfPointBack(
         arr[1],
-      )}px ${transformHalfPointBack(arr[2])}px ${transformHalfPointBack(
-        arr[3],
-      )}px;`;
+      )}${cssUnit} ${transformHalfPointBack(
+        arr[2],
+      )}${cssUnit} ${transformHalfPointBack(arr[3])}${cssUnit};`;
       break;
     case 5:
       styles = `${arr[0]}:${transformHalfPointBack(
         arr[1],
-      )}px ${transformHalfPointBack(arr[2])}px ${transformHalfPointBack(
+      )}${cssUnit} ${transformHalfPointBack(
+        arr[2],
+      )}${cssUnit} ${transformHalfPointBack(
         arr[3],
-      )}px ${transformHalfPointBack(arr[4])}px;`;
+      )}${cssUnit} ${transformHalfPointBack(arr[4])}${cssUnit};`;
       break;
     default:
       break;

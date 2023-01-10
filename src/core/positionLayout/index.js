@@ -3,6 +3,7 @@ import {
   templateAreaReg,
   transformHalfPointClass,
   transformHalfPointBack,
+  cssUnit,
 } from "../common";
 
 // const relativeTopStyleReg = /(?<=["'\s])(-(\\d+|(\\d+\.\\d+))){0,5}(?=["'\s])/g;
@@ -51,13 +52,13 @@ function getPositionClassValues(res) {
   let styles;
   if (arr.length > 0) styles = `\nposition:${arr[0]};\n`;
   if (arr.length > 1 && arr[1] != 0)
-    styles = `${styles}top:${transformHalfPointBack(arr[1])}px;\n`;
+    styles = `${styles}top:${transformHalfPointBack(arr[1])}${cssUnit};\n`;
   if (arr.length > 2 && arr[2] != 0)
-    styles = `${styles}right:${transformHalfPointBack(arr[2])}px;\n`;
+    styles = `${styles}right:${transformHalfPointBack(arr[2])}${cssUnit};\n`;
   if (arr.length > 3 && arr[3] != 0)
-    styles = `${styles}bottom:${transformHalfPointBack(arr[3])}px;\n`;
+    styles = `${styles}bottom:${transformHalfPointBack(arr[3])}${cssUnit};\n`;
   if (arr.length > 4 && arr[4] != 0)
-    styles = `${styles}left:${transformHalfPointBack(arr[4])}px;\n`;
+    styles = `${styles}left:${transformHalfPointBack(arr[4])}${cssUnit};\n`;
   if (arr.length > 5 && arr[5] != 0)
     styles = `${styles}z-index:${transformHalfPointBack(arr[5])};\n`;
   const r = `.${res} {${styles}}`;
