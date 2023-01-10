@@ -1,6 +1,8 @@
 export const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
 export const templateAreaReg = /(?<=<template[\s\S]*>)[\s\S]*(?=<\/template>)/g;
 
+export let cssUnit = null;
+
 export function transformHalfPointClass(str) {
   return str.replace(/\./g, "_");
 }
@@ -10,5 +12,6 @@ export function transformHalfPointBack(str) {
 }
 
 export function getPassInOptions(mid, query) {
+  cssUnit = query?.cssUnit ?? "px";
   mid["cssUnit"] = query?.cssUnit ?? "px";
 }
