@@ -8,3 +8,7 @@ export function transformHalfPointClass(str) {
 export function transformHalfPointBack(str) {
   return str.replace(/_/g, ".");
 }
+
+export function getPassInOptions(mid, query) {
+  mid["cssUnit"] = query?.cssUnit ?? "px";
+}
