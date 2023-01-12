@@ -4,11 +4,11 @@ export const templateAreaReg = /(?<=<template[\s\S]*>)[\s\S]*(?=<\/template>)/g;
 export let cssUnit = null;
 
 export function transformHalfPointClass(str) {
-  return str.replace(/\./g, "_");
+  return str.replace(/\./g, "po");
 }
 
 export function transformHalfPointBack(str) {
-  return str.replace(/_/g, ".");
+  return str.replace(/po/g, ".");
 }
 
 export function transformNegativeClass(str) {
