@@ -50,44 +50,39 @@ function handleMatchRegTemplate(str, reg, mid) {
 
 function getPositionClassValues(res) {
   const arr = res.split("-");
-  let styles, a1, a2, a3, a4;
-  switch (arr.length) {
+  const arrs = getTransformedBackArr(arr);
+  let styles;
+  switch (arrs.length) {
     case 2:
-      a1 = transformHalfPointBack(arr[1]);
-      a1 = transformNegativeBack(a1);
-      styles = `${arr[0]}:${a1}${cssUnit};`;
+      styles = `${arrs[0]}:${arrs[1]}${cssUnit};`;
       break;
     case 3:
-      a1 = transformHalfPointBack(arr[1]);
-      a1 = transformNegativeBack(a1);
-      a2 = transformHalfPointBack(arr[2]);
-      a2 = transformNegativeBack(a2);
-      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit};`;
+      styles = `${arrs[0]}:${arrs[1]}${cssUnit} ${arrs[2]}${cssUnit};`;
       break;
     case 4:
-      a1 = transformHalfPointBack(arr[1]);
-      a1 = transformNegativeBack(a1);
-      a2 = transformHalfPointBack(arr[2]);
-      a2 = transformNegativeBack(a2);
-      a3 = transformHalfPointBack(arr[3]);
-      a3 = transformNegativeBack(a3);
-      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit} ${a3}${cssUnit};`;
+      styles = `${arrs[0]}:${arrs[1]}${cssUnit} ${arrs[2]}${cssUnit} ${arrs[3]}${cssUnit};`;
       break;
     case 5:
-      a1 = transformHalfPointBack(arr[1]);
-      a1 = transformNegativeBack(a1);
-      a2 = transformHalfPointBack(arr[2]);
-      a2 = transformNegativeBack(a2);
-      a3 = transformHalfPointBack(arr[3]);
-      a3 = transformNegativeBack(a3);
-      a4 = transformHalfPointBack(arr[4]);
-      a4 = transformNegativeBack(a4);
-      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit} ${a3}${cssUnit} ${a4}${cssUnit};`;
+      styles = `${arrs[0]}:${arrs[1]}${cssUnit} ${arrs[2]}${cssUnit} ${arrs[3]}${cssUnit} ${arrs[4]}${cssUnit};`;
       break;
     default:
       break;
   }
   const r = `.${res} {\n${styles}\n}`;
+  return r;
+}
+
+function getTransformedBackArr(arr) {
+  const r = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i === 0) {
+      r.push(arr[i]);
+    } else {
+      let m = transformHalfPointBack(arr[i]);
+      m = transformNegativeBack(m);
+      r.push(m);
+    }
+  }
   return r;
 }
 
