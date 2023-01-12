@@ -11,6 +11,14 @@ export function transformHalfPointBack(str) {
   return str.replace(/_/g, ".");
 }
 
+export function transformNegativeClass(str) {
+  return str.replace(/--/g, "-ne");
+}
+
+export function transformNegativeBack(str) {
+  return str.replace(/ne/g, "-");
+}
+
 export function getPassInOptions(mid, query) {
   cssUnit = query?.cssUnit ?? "px";
   mid["cssUnit"] = query?.cssUnit ?? "px";
