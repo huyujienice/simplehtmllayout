@@ -3,6 +3,8 @@ import {
   templateAreaReg,
   transformHalfPointClass,
   transformHalfPointBack,
+  transformNegativeClass,
+  transformNegativeBack,
   cssUnit,
 } from "../common";
 
@@ -39,6 +41,7 @@ function handleMatchRegTemplate(str, reg, mid) {
     if (!mid.hasOwnProperty("marginpaddingLayout"))
       mid.marginpaddingLayout = new Set();
     let r = transformHalfPointClass(match);
+    r = transformNegativeClass(r);
     mid.marginpaddingLayout.add(r);
     return r;
   });
@@ -47,31 +50,39 @@ function handleMatchRegTemplate(str, reg, mid) {
 
 function getPositionClassValues(res) {
   const arr = res.split("-");
-  let styles;
+  let styles, a1, a2, a3, a4;
   switch (arr.length) {
     case 2:
-      styles = `${arr[0]}:${transformHalfPointBack(arr[1])}${cssUnit};`;
+      a1 = transformHalfPointBack(arr[1]);
+      a1 = transformNegativeBack(a1);
+      styles = `${arr[0]}:${a1}${cssUnit};`;
       break;
     case 3:
-      styles = `${arr[0]}:${transformHalfPointBack(
-        arr[1],
-      )}${cssUnit} ${transformHalfPointBack(arr[2])}${cssUnit};`;
+      a1 = transformHalfPointBack(arr[1]);
+      a1 = transformNegativeBack(a1);
+      a2 = transformHalfPointBack(arr[2]);
+      a2 = transformNegativeBack(a2);
+      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit};`;
       break;
     case 4:
-      styles = `${arr[0]}:${transformHalfPointBack(
-        arr[1],
-      )}${cssUnit} ${transformHalfPointBack(
-        arr[2],
-      )}${cssUnit} ${transformHalfPointBack(arr[3])}${cssUnit};`;
+      a1 = transformHalfPointBack(arr[1]);
+      a1 = transformNegativeBack(a1);
+      a2 = transformHalfPointBack(arr[2]);
+      a2 = transformNegativeBack(a2);
+      a3 = transformHalfPointBack(arr[3]);
+      a3 = transformNegativeBack(a3);
+      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit} ${a3}${cssUnit};`;
       break;
     case 5:
-      styles = `${arr[0]}:${transformHalfPointBack(
-        arr[1],
-      )}${cssUnit} ${transformHalfPointBack(
-        arr[2],
-      )}${cssUnit} ${transformHalfPointBack(
-        arr[3],
-      )}${cssUnit} ${transformHalfPointBack(arr[4])}${cssUnit};`;
+      a1 = transformHalfPointBack(arr[1]);
+      a1 = transformNegativeBack(a1);
+      a2 = transformHalfPointBack(arr[2]);
+      a2 = transformNegativeBack(a2);
+      a3 = transformHalfPointBack(arr[3]);
+      a3 = transformNegativeBack(a3);
+      a4 = transformHalfPointBack(arr[4]);
+      a4 = transformNegativeBack(a4);
+      styles = `${arr[0]}:${a1}${cssUnit} ${a2}${cssUnit} ${a3}${cssUnit} ${a4}${cssUnit};`;
       break;
     default:
       break;
@@ -104,6 +115,6 @@ function addPositionClass(str, mid) {
  * @return {RegExp}
  */
 function getPositionLayoutReg(position = "margin") {
-  const regStr = `(?<=["'\\s])${position}(-(\\d+|(\\d+\.\\d+))){1,4}(?=["'\\s])`;
+  const regStr = `(?<=["'\\s])${position}((-|--)(\\d+|(\\d+\.\\d+))){1,4}(?=["'\\s])`;
   return new RegExp(regStr, "g");
 }

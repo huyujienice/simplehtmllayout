@@ -100,6 +100,6 @@ function addPositionClass(str, mid) {
  * @return {RegExp}
  */
 function getPositionLayoutReg(position = "relative") {
-  const regStr = `(?<=["'\\s])${position}((-||--)(\\d+|(\\d+\.\\d+))){0,5}(?=["'\\s])`;
+  const regStr = `(?<=["'\\s])${position}((-|--)(\\d+|(\\d+\.\\d+))){0,5}(?=["'\\s])`;
   return new RegExp(regStr, "g");
 }
