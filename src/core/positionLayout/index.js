@@ -52,7 +52,7 @@ function handleMatchRegTemplate(str, reg, mid) {
 
 function getPositionClassValues(res) {
   const arr = res.split("-");
-  let styles, m;
+  let styles;
   if (arr.length > 0) styles = `\nposition:${arr[0]};\n`;
   if (arr.length > 1 && arr[1] != 0)
     styles = getTransformedStr(styles, "top", arr[1]);
