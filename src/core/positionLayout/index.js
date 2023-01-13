@@ -62,8 +62,11 @@ function getPositionClassValues(res) {
     styles = getTransformedStr(styles, "bottom", arr[3]);
   if (arr.length > 4 && arr[4] != 0)
     styles = getTransformedStr(styles, "left", arr[4]);
-  if (arr.length > 5 && arr[5] != 0)
-    styles = getTransformedStr(styles, "z-index", arr[5]);
+  if (arr.length > 5 && arr[5] != 0) {
+    let r = transformHalfPointBack(arr[5]);
+    r = transformNegativeBack(r);
+    styles = `${styles}z-index:${r};\n`;
+  }
   const r = `.${res} {${styles}}`;
   return r;
 }
