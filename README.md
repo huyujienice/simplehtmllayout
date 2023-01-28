@@ -85,7 +85,7 @@ padding:10px 20px 30px 40px;
 </style>
 ```
 
-## 如何安装
+## 安装
 
 1.对于使用 Vue CLI 构建的项目来说,直接在项目根目录执行命令
 
@@ -93,7 +93,7 @@ padding:10px 20px 30px 40px;
 vue add vue-cli-plugin-simplehtmllayout
 ```
 
-## 如何使用
+## 使用
 
 1.在.vue 文件内任意区域添加**simplehtmllayout**单词，过滤器会对文件内容进行过滤，含有**simplehtmllayout**字样的文件会进行快速布局
 
@@ -121,7 +121,7 @@ margin-number1-number2-number3-number4
 {margin:number1px number2px number3px number4px;}  
 padding 类似
 
-## 友情提示
+## 提示
 
 ### 支持有效负数及小数
 
