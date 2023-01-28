@@ -112,3 +112,28 @@ margin-number1-number2-number3-number4
 {margin:number1px number2px number3px number4px;}  
 padding类似  
 
+## 友情提示
+1.支持有效负数及小数
+2.支持配置传入css布局单位
+例如：
+uni-app框架中使用，在vue.config.js中添加
+```
+module.exports = {
+    configureWebpack: {
+        module: {
+            rules: [
+                {
+                    test: /\.vue$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                        loader: path.resolve("simplehtmllayout"),
+                        options: {
+                            cssUnit: "rpx",
+                        },
+                    },
+                },
+            ],
+        },
+    }
+};
+```
