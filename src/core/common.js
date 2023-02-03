@@ -12,11 +12,11 @@ export function transformHalfPointBack(str) {
 }
 
 export function transformNegativeClass(str) {
-  return str.replace(/--/g, "-ne");
+  return str.replace(/--/g, "-_ne_");
 }
 
 export function transformNegativeBack(str) {
-  return str.replace(/ne/g, "-");
+  return str.replace(/_ne_/g, "-");
 }
 
 export function getPassInOptions(mid, query) {
