@@ -136,21 +136,13 @@ padding 类似
 
 ```
 module.exports = {
-    configureWebpack: {
-        module: {
-            rules: [
-                {
-                    test: /\.vue$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: path.resolve("simplehtmllayout"),
-                        options: {
-                            cssUnit: "rpx",
-                        },
-                    },
-                },
-            ],
-        },
+    chainWebpack: config => {
+        config.module
+            .rule("vue")
+            .test(/\.vue$/)
+            .use("simplehtmllayout")
+            .loader("simplehtmllayout")
+            .options({ cssUnit: "rpx" });
     }
 };
 ```
