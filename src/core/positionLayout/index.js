@@ -54,14 +54,38 @@ function getPositionClassValues(res) {
   const arr = res.split("-");
   let styles;
   if (arr.length > 0) styles = `\nposition:${arr[0]};\n`;
-  if (arr.length > 1 && arr[1] != 0)
-    styles = getTransformedStr(styles, "top", arr[1]);
-  if (arr.length > 2 && arr[2] != 0)
-    styles = getTransformedStr(styles, "right", arr[2]);
-  if (arr.length > 3 && arr[3] != 0)
-    styles = getTransformedStr(styles, "bottom", arr[3]);
-  if (arr.length > 4 && arr[4] != 0)
-    styles = getTransformedStr(styles, "left", arr[4]);
+  //slice two effective attribute
+  // if (arr.length > 1 && arr[1] != 0)
+  //   styles = getTransformedStr(styles, "top", arr[1]);
+  // if (arr.length > 2 && arr[2] != 0)
+  //   styles = getTransformedStr(styles, "right", arr[2]);
+  // if (arr.length > 3 && arr[3] != 0)
+  //   styles = getTransformedStr(styles, "bottom", arr[3]);
+  // if (arr.length > 4 && arr[4] != 0)
+  //   styles = getTransformedStr(styles, "left", arr[4]);
+  // todo
+  const origin = {
+    top: arr[1],
+    right: arr[2],
+    bottom: arr[3],
+    left: arr[4],
+  };
+  const top = arr[1],
+    right = arr[2],
+    bottom = arr[3],
+    left = arr[4];
+  if (top !== "0" && (bottom === "0" || bottom === undefined)) {
+    styles = getTransformedStr(styles, "top", top);
+  } else {
+    styles = getTransformedStr(styles, "bottom", bottom);
+  }
+  if (right !== "0" && (left === "0" || left === undefined)) {
+    styles = getTransformedStr(styles, "right", right);
+  } else {
+    styles = getTransformedStr(styles, "left", left);
+  }
+  console.log(origin);
+
   if (arr.length > 5 && arr[5] != 0) {
     let r = transformHalfPointBack(arr[5]);
     r = transformNegativeBack(r);
