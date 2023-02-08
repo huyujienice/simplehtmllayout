@@ -54,37 +54,29 @@ function getPositionClassValues(res) {
   const arr = res.split("-");
   let styles;
   if (arr.length > 0) styles = `\nposition:${arr[0]};\n`;
-  //slice two effective attribute
-  // if (arr.length > 1 && arr[1] != 0)
-  //   styles = getTransformedStr(styles, "top", arr[1]);
-  // if (arr.length > 2 && arr[2] != 0)
-  //   styles = getTransformedStr(styles, "right", arr[2]);
-  // if (arr.length > 3 && arr[3] != 0)
-  //   styles = getTransformedStr(styles, "bottom", arr[3]);
-  // if (arr.length > 4 && arr[4] != 0)
-  //   styles = getTransformedStr(styles, "left", arr[4]);
-  // todo
-  const origin = {
-    top: arr[1],
-    right: arr[2],
-    bottom: arr[3],
-    left: arr[4],
-  };
+  //keep two effective attribute
   const top = arr[1],
     right = arr[2],
     bottom = arr[3],
     left = arr[4];
-  if (top !== "0" && (bottom === "0" || bottom === undefined)) {
+  if (top && top != 0) {
     styles = getTransformedStr(styles, "top", top);
-  } else {
+  }
+  if (right && right != 0) {
+    styles = getTransformedStr(styles, "right", right);
+  }
+  if (bottom && bottom != 0) {
     styles = getTransformedStr(styles, "bottom", bottom);
   }
-  if (right !== "0" && (left === "0" || left === undefined)) {
-    styles = getTransformedStr(styles, "right", right);
-  } else {
+  if (left && left != 0) {
     styles = getTransformedStr(styles, "left", left);
   }
-  console.log(origin);
+  if ((!top || top == "0") && (!bottom || bottom == "0")) {
+    styles = getTransformedStr(styles, "top", "0");
+  }
+  if ((!left || left == "0") && (!right || right == "0")) {
+    styles = getTransformedStr(styles, "left", "0");
+  }
 
   if (arr.length > 5 && arr[5] != 0) {
     let r = transformHalfPointBack(arr[5]);
@@ -98,7 +90,7 @@ function getPositionClassValues(res) {
 function getTransformedStr(str, left, right) {
   let r = transformHalfPointBack(right);
   r = transformNegativeBack(r);
-  return `${str}${left}:${r}${cssUnit};;\n`;
+  return `${str}${left}:${r}${cssUnit};\n`;
 }
 
 function addPositionClass(str, mid) {
