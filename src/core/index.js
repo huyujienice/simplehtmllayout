@@ -12,3 +12,15 @@ export default function transformVueFile(source) {
   res = transformMarginpaddingLayout(res, midParams);
   return res;
 }
+
+export function vitePluginSimplehtmllayout() {
+  return {
+    name: "simplehtmllayout",
+    async transform(code, id) {
+      if (/.vue$/.test(id)) {
+        code = transformVueFile(code);
+      }
+      return { code };
+    },
+  };
+}
