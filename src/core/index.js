@@ -16,11 +16,15 @@ export default function transformVueFile(source) {
 export function vitePluginSimplehtmllayout() {
   return {
     name: "simplehtmllayout",
-    async transform(code, id) {
-      if (/.vue$/.test(id)) {
+    enforce: "pre",
+    transform(code, id) {
+      if (/.vue$/.test(id) && code.includes("simplehtmllayout")) {
         code = transformVueFile(code);
       }
       return { code };
+    },
+    handleHotUpdate(ctx) {
+      const { file, server, modules } = ctx;
     },
   };
 }
