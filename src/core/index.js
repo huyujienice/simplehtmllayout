@@ -14,40 +14,22 @@ export default function transformVueFile(source) {
 }
 
 export function vitePluginSimplehtmllayout() {
-  const simplehtmllayoutPluginSet = new Set();
   return {
     name: "simplehtmllayout",
     enforce: "pre",
     transform(code, id) {
-      if (/.vue$/.test(id) && code.includes("simplehtmllayout")) {
+      if (/.vue$/.test(id)) {
         code = transformVueFile(code);
-        simplehtmllayoutPluginSet.add(id);
-        console.log(`id=${id}`);
       }
       return { code };
     },
     handleHotUpdate(ctx) {
-      const { file, server, modules } = ctx;
+      //todo
+      //热更新中的css模块未处理transfrom过后的源文件
+      const { file, modules } = ctx;
       console.log(`file=${JSON.stringify(file)}`);
       const arr = [...modules];
-      if (simplehtmllayoutPluginSet.has(file)) {
-        console.log(`-full-reload-`);
-        const relationModule = [
-          ...server.moduleGraph.getModulesByFile(file),
-        ][0];
-        arr.push(relationModule);
-        server.ws.send({
-          type: "update",
-          updates: [
-            {
-              type: "js-update",
-              path: relationModule.file,
-              acceptedPath: relationModule.file,
-              timestamp: new Date().getTime(),
-            },
-          ],
-        });
-      }
+      console.log(modules);
       return arr;
     },
   };
