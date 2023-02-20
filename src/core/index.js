@@ -17,29 +17,21 @@ export function vitePluginSimplehtmllayout() {
   return {
     name: "simplehtmllayout",
     enforce: "pre",
-    transform(code, id) {
+    transform(src, id) {
+      let _src = src;
       if (/.vue$/.test(id)) {
-        code = transformVueFile(code);
+        _src = transformVueFile(src);
       }
-      return { code };
+      return { code: _src };
     },
-    configureServer(server) {
-      //todo 中间件处理HMR
-      server.middlewares.use((req, res, next) => {
-        // 自定义请求处理...
-        console.log(`req.method=${req.method}`);
-        console.log(`req.url=${req.url}`);
-        console.log(`req.body=${req.body}`);
-        next();
-      });
-    },
-    handleHotUpdate(ctx) {
+    async handleHotUpdate(ctx) {
       //todo
       //热更新中的css模块未处理transfrom过后的源文件
-      const { file, modules } = ctx;
-      console.log(`file=${JSON.stringify(file)}`);
+      //使用full-reload即可
+      const { modules, server } = ctx;
       const arr = [...modules];
       console.log(modules);
+      server.ws.send({ type: "full-reload" });
       return arr;
     },
   };
