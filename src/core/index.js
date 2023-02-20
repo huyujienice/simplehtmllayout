@@ -27,7 +27,7 @@ export function vitePluginSimplehtmllayout() {
     async handleHotUpdate(ctx) {
       //todo
       //热更新中的css模块未处理transfrom过后的源文件
-      //使用full-reload即可
+      //使用full-reload也会出现未响应的情况
       const { modules, server } = ctx;
       const arr = [...modules];
       console.log(modules);
