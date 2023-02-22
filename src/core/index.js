@@ -13,26 +13,37 @@ export default function transformVueFile(source) {
   return res;
 }
 
+function sleepWhile(num) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, num);
+  });
+}
+
 export function vitePluginSimplehtmllayout() {
   return {
     name: "simplehtmllayout",
     enforce: "pre",
     transform(src, id) {
-      let _src = src;
       if (/.vue$/.test(id)) {
-        _src = transformVueFile(src);
+        console.log(`transform id=${id}`);
+        src = transformVueFile(src);
+        return {
+          code: src,
+          map: null, // 如果可行将提供 source map
+        };
       }
-      return { code: _src };
     },
     async handleHotUpdate(ctx) {
       //todo
       //热更新中的css模块未处理transfrom过后的源文件
       //使用full-reload也会出现未响应的情况
-      const { modules, server } = ctx;
-      const arr = [...modules];
-      console.log(modules);
+      const { modules, server, file, read } = ctx;
+      console.log(`handleHotUpdate file=${file}`);
+      await read();
       server.ws.send({ type: "full-reload" });
-      return arr;
+      return modules;
     },
   };
 }
