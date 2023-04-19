@@ -3,6 +3,8 @@ import { transformPositionLayout } from "./positionLayout/index";
 import { transformMarginpaddingLayout } from "./marginpaddingLayout/index";
 import { getPassInOptions } from "./common";
 
+const MIDPARAMS = {};
+
 export default function transformVueFile(source) {
   if (!source.includes("simplehtmllayout")) return source;
   const midParams = {};
@@ -13,11 +15,18 @@ export default function transformVueFile(source) {
   return res;
 }
 
-export function vitePluginSimplehtmllayout() {
-  return createVitePlugin();
+export function vitePluginSimplehtmllayout(options) {
+  return createVitePlugin(options);
 }
 
-function createVitePlugin() {
+function viteTransform(source) {
+  let res = transformWidthAndHeight(source, MIDPARAMS);
+  res = transformPositionLayout(res, MIDPARAMS);
+  res = transformMarginpaddingLayout(res, MIDPARAMS);
+  return res;
+}
+
+function createVitePlugin(options) {
   const needReloadFile = new Set();
   return {
     name: "simplehtmllayout",
@@ -29,8 +38,9 @@ function createVitePlugin() {
         } else {
           needReloadFile.delete(id);
         }
+        getPassInOptions(MIDPARAMS, options);
         return {
-          code: transformVueFile(src),
+          code: viteTransform(src),
           map: null, // 如果可行将提供 source map
         };
       }
