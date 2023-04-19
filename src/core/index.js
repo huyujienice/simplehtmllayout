@@ -14,6 +14,10 @@ export default function transformVueFile(source) {
 }
 
 export function vitePluginSimplehtmllayout() {
+  return createVitePlugin();
+}
+
+function createVitePlugin() {
   const needReloadFile = new Set();
   return {
     name: "simplehtmllayout",
@@ -35,7 +39,7 @@ export function vitePluginSimplehtmllayout() {
       //todo
       //transform后文件内容正确
       //热更新中的css模块未更新
-      const { modules, server, file, read } = ctx;
+      const { server, file } = ctx;
       //使用full-reload也会出现未更新的情况
       // server.ws.send({ type: "full-reload", path: "*" });
       // 未找到原因，目前只能通过重启服务解决
