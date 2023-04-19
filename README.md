@@ -147,6 +147,27 @@ module.exports = {
 };
 ```
 
+#### 想在 vite 中使用，必须：
+
+1.命令行安装 simplehtmllayout  
+2.手动在 vue.config.js 中添加相关插件
+
+```
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { vitePluginSimplehtmllayout } from "simplehtmllayout";
+
+export default defineConfig({
+  plugins: [vitePluginSimplehtmllayout(), vue()],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+});
+```
+
 #### 想在 VUE CLI 项目内使用别的 css 布局单位（例如：vw）,必须：
 
 1.命令行安装 simplehtmllayout  
