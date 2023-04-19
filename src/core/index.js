@@ -7,19 +7,15 @@ const MIDPARAMS = {};
 
 export default function transformVueFile(source) {
   if (!source.includes("simplehtmllayout")) return source;
-  const midParams = {};
-  getPassInOptions(midParams, this?.query);
-  let res = transformWidthAndHeight(source, midParams);
-  res = transformPositionLayout(res, midParams);
-  res = transformMarginpaddingLayout(res, midParams);
-  return res;
+  getPassInOptions(MIDPARAMS, this?.query);
+  return templateTransform(source)
 }
 
 export function vitePluginSimplehtmllayout(options) {
   return createVitePlugin(options);
 }
 
-function viteTransform(source) {
+function templateTransform(source) {
   let res = transformWidthAndHeight(source, MIDPARAMS);
   res = transformPositionLayout(res, MIDPARAMS);
   res = transformMarginpaddingLayout(res, MIDPARAMS);
@@ -31,16 +27,16 @@ function createVitePlugin(options) {
   return {
     name: "simplehtmllayout",
     enforce: "pre",
-    transform(src, id) {
+    transform(source, id) {
       if (/.vue$/.test(id)) {
-        if (src.includes("simplehtmllayout")) {
+        if (source.includes("simplehtmllayout")) {
           needReloadFile.add(id);
         } else {
           needReloadFile.delete(id);
         }
         getPassInOptions(MIDPARAMS, options);
         return {
-          code: viteTransform(src),
+          code: templateTransform(source),
           map: null, // 如果可行将提供 source map
         };
       }
