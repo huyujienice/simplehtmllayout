@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack",
-    "format:src": "node format.js"
+    "format": "node format.js"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
