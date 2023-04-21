@@ -22,8 +22,16 @@ function templateTransform(source) {
   return res;
 }
 
+function viteTemplateTransform(source, midParams = {}) {
+  let res = transformWidthAndHeight(source, midParams);
+  res = transformPositionLayout(res, midParams);
+  res = transformMarginpaddingLayout(res, midParams);
+  return res;
+}
+
 function createVitePlugin(options) {
   const needReloadFile = new Set();
+  getPassInOptions(MIDPARAMS, options);
   return {
     name: "simplehtmllayout",
     enforce: "pre",
@@ -34,9 +42,8 @@ function createVitePlugin(options) {
         } else {
           needReloadFile.delete(id);
         }
-        getPassInOptions(MIDPARAMS, options);
         return {
-          code: templateTransform(source),
+          code: viteTemplateTransform(source),
           map: null, // 如果可行将提供 source map
         };
       }
