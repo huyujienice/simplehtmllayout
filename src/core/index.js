@@ -8,7 +8,7 @@ const MIDPARAMS = {};
 export default function transformVueFile(source) {
   if (!source.includes("simplehtmllayout")) return source;
   getPassInOptions(MIDPARAMS, this?.query);
-  return templateTransform(source)
+  return templateTransform(source);
 }
 
 export function vitePluginSimplehtmllayout(options) {
