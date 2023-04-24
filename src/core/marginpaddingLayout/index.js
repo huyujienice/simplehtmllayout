@@ -30,7 +30,7 @@ function transformPositionLayoutTemplate(str, mid) {
 
 function transformPositionLayoutStyle(str, mid) {
   const r = str.replace(styleAreaReg, m => {
-    let r1 = addPositionClass(m, mid);
+    let r1 = addMarginAndPaddingClass(m, mid);
     return r1;
   });
   return r;
@@ -86,7 +86,7 @@ function getTransformedBackArr(arr) {
   return r;
 }
 
-function addPositionClass(str, mid) {
+function addMarginAndPaddingClass(str, mid) {
   let r = str;
   const arr = ["marginpaddingLayout"];
   arr.forEach(item => {
