@@ -23,3 +23,7 @@ export function getPassInOptions(mid, query) {
   cssUnit = query?.cssUnit ?? "px";
   mid["cssUnit"] = query?.cssUnit ?? "px";
 }
+
+export function initCssUnit(options) {
+  cssUnit = options?.cssUnit ?? "px";
+}

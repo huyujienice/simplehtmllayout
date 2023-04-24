@@ -86,7 +86,7 @@ function getTransformedBackArr(arr) {
   return r;
 }
 
-function addMarginAndPaddingClass(str, mid) {
+export function addMarginAndPaddingClass(str, mid) {
   let r = str;
   const arr = ["marginpaddingLayout"];
   arr.forEach(item => {

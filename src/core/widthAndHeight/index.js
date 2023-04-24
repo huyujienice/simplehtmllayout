@@ -49,7 +49,7 @@ function getWidthAndHeightClassValues(res) {
   return r;
 }
 
-function addWidthAndHeightClass(str, mid) {
+export function addWidthAndHeightClass(str, mid) {
   let r = str;
   const arr = ["widthStyleSet", "heightStyleSet"];
   arr.forEach(item => {

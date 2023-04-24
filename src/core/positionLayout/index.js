@@ -93,7 +93,7 @@ function getTransformedStr(str, left, right) {
   return `${str}${left}:${r}${cssUnit};\n`;
 }
 
-function addPositionClass(str, mid) {
+export function addPositionClass(str, mid) {
   let r = str;
   const arr = ["positionLayoutSet"];
   arr.forEach(item => {
