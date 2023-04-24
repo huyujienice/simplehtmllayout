@@ -11,8 +11,12 @@ export default function transformVueFile(source) {
   return templateTransform(source);
 }
 
-export function vitePluginSimplehtmllayout(options) {
-  return createVitePlugin(options);
+export function vitePluginSimplehtmllayoutPre(options) {
+  return createPreVitePlugin(options);
+}
+
+export function vitePluginSimplehtmllayoutPost() {
+  return createPostVitePlugin();
 }
 
 function templateTransform(source) {
@@ -29,11 +33,27 @@ function viteTemplateTransform(source, midParams = {}) {
   return res;
 }
 
-function createVitePlugin(options) {
+function createPostVitePlugin() {
+  return {
+    name: "simplehtmllayoutPost",
+    enforce: "post",
+    transform(source, id) {
+      if (/.vue$/.test(id)) {
+        console.log(source);
+        return {
+          code: source,
+          map: null, // 如果可行将提供 source map
+        };
+      }
+    },
+  };
+}
+
+function createPreVitePlugin(options) {
   const needReloadFile = new Set();
   getPassInOptions(MIDPARAMS, options);
   return {
-    name: "simplehtmllayout",
+    name: "simplehtmllayoutPre",
     enforce: "pre",
     transform(source, id) {
       if (/.vue$/.test(id)) {
@@ -48,19 +68,19 @@ function createVitePlugin(options) {
         };
       }
     },
-    async handleHotUpdate(ctx) {
-      //todo
-      //transform后文件内容正确
-      //热更新中的css模块未更新
-      const { server, file } = ctx;
-      //使用full-reload也会出现未更新的情况
-      // server.ws.send({ type: "full-reload", path: "*" });
-      // 未找到原因，目前只能通过重启服务解决
-      if (needReloadFile.has(file)) {
-        try {
-          await server.restart();
-        } catch (e) {}
-      }
-    },
+    // async handleHotUpdate(ctx) {
+    //   //todo
+    //   //transform后文件内容正确
+    //   //热更新中的css模块未更新
+    //   const { server, file } = ctx;
+    //   //使用full-reload也会出现未更新的情况
+    //   // server.ws.send({ type: "full-reload", path: "*" });
+    //   // 未找到原因，目前只能通过重启服务解决
+    //   if (needReloadFile.has(file)) {
+    //     try {
+    //       await server.restart();
+    //     } catch (e) {}
+    //   }
+    // },
   };
 }
