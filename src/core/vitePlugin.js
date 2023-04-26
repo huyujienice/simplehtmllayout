@@ -12,7 +12,7 @@ export const vitePlugin = options => {
 };
 const pluginPre = () => {
   return {
-    name: "simplehtmllayoutVuePre",
+    name: "vitePluginSimplehtmllayout",
     enforce: "pre",
     transform(source, id) {
       if (VUEFILEREG.test(id)) {
