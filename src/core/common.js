@@ -1,3 +1,7 @@
+import { transformWidthAndHeight } from "./widthAndHeight/index.js";
+import { transformPositionLayout } from "./positionLayout/index.js";
+import { transformMarginpaddingLayout } from "./marginpaddingLayout/index.js";
+
 export const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
 export const templateAreaReg = /(?<=<template[\s\S]*>)[\s\S]*(?=<\/template>)/g;
 
@@ -26,4 +30,11 @@ export function getPassInOptions(mid, query) {
 
 export function initCssUnit(options) {
   cssUnit = options?.cssUnit ?? "px";
+}
+
+export function transformSFC(source, midParams = {}) {
+  let res = transformWidthAndHeight(source, midParams);
+  res = transformPositionLayout(res, midParams);
+  res = transformMarginpaddingLayout(res, midParams);
+  return res;
 }

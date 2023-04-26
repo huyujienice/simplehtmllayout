@@ -1,7 +1,4 @@
-import { transformWidthAndHeight } from "./widthAndHeight/index.js";
-import { transformPositionLayout } from "./positionLayout/index.js";
-import { transformMarginpaddingLayout } from "./marginpaddingLayout/index.js";
-import { initCssUnit } from "./common.js";
+import { transformSFC,initCssUnit } from "./common.js";
 
 const NEEDRELOADFILE = new Set();
 const VUEFILEREG = /.vue$/;
@@ -18,7 +15,7 @@ const pluginPre = () => {
       if (VUEFILEREG.test(id)) {
         let str = source;
         if (source.includes("simplehtmllayout")) {
-          str = viteTemplateTransform(str);
+          str = transformSFC(str);
           NEEDRELOADFILE.add(id);
           return {
             code: str,
@@ -35,15 +32,9 @@ const pluginPre = () => {
       if (NEEDRELOADFILE.has(file)) {
         ctx.read = async () => {
           const code = await read();
-          return (await viteTemplateTransform(code)) || code;
+          return (await transformSFC(code)) || code;
         };
       }
     },
   };
-};
-const viteTemplateTransform = (source, midParams = {}) => {
-  let res = transformWidthAndHeight(source, midParams);
-  res = transformPositionLayout(res, midParams);
-  res = transformMarginpaddingLayout(res, midParams);
-  return res;
 };
