@@ -1,6 +1,6 @@
 {
   "name": "simplehtmllayout",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "a simple html layout tools for quick build vue project",
   "main": "./dist/simplehtmllayout.js",
   "scripts": {
