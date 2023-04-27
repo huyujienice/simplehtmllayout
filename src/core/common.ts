@@ -1,6 +1,6 @@
-import { transformWidthAndHeight } from "./widthAndHeight/index.js";
-import { transformPositionLayout } from "./positionLayout/index.js";
-import { transformMarginpaddingLayout } from "./marginpaddingLayout/index.js";
+import { transformWidthAndHeight } from "./widthAndHeight/index";
+import { transformPositionLayout } from "./positionLayout/index";
+import { transformMarginpaddingLayout } from "./marginpaddingLayout/index";
 
 export const styleAreaReg = /(?<=<style[\s\S]*>)[\s\S]*(?=<\/style>)/g;
 export const templateAreaReg = /(?<=<template[\s\S]*>)[\s\S]*(?=<\/template>)/g;

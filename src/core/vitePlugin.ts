@@ -1,4 +1,4 @@
-import { transformSFC,initCssUnit } from "./common.js";
+import { transformSFC,initCssUnit } from "./common";
 
 const NEEDRELOADFILE = new Set();
 const VUEFILEREG = /.vue$/;

@@ -1,5 +1,5 @@
-import { vitePlugin } from "./vitePlugin.js";
-import { transformSFC,getPassInOptions } from "./common.js";
+import { vitePlugin } from "./vitePlugin";
+import { transformSFC,getPassInOptions } from "./common";
 
 export default function transformVueFile(source) {
   if (!source.includes("simplehtmllayout")) return source;
