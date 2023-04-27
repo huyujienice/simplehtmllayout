@@ -7,16 +7,17 @@ import {
   transformNegativeBack,
   cssUnit,
 } from "../common";
+import type { MidParams } from "../types";
 
 const positionLayoutArr = ["margin", "padding"];
 
-export function transformMarginpaddingLayout(str, mid = {}) {
+export function transformMarginpaddingLayout(str: string, mid: MidParams = {}):string {
   let r = transformPositionLayoutTemplate(str, mid);
   r = transformPositionLayoutStyle(r, mid);
   return r;
 }
 
-function transformPositionLayoutTemplate(str, mid) {
+function transformPositionLayoutTemplate(str: string, mid: MidParams):string {
   const r = str.replace(templateAreaReg, m => {
     let r1 = m;
     positionLayoutArr.forEach(p => {
@@ -28,7 +29,7 @@ function transformPositionLayoutTemplate(str, mid) {
   return r;
 }
 
-function transformPositionLayoutStyle(str, mid) {
+function transformPositionLayoutStyle(str: string, mid: MidParams):string {
   const r = str.replace(styleAreaReg, m => {
     let r1 = addMarginAndPaddingClass(m, mid);
     return r1;
@@ -36,19 +37,19 @@ function transformPositionLayoutStyle(str, mid) {
   return r;
 }
 
-function handleMatchRegTemplate(str, reg, mid) {
+function handleMatchRegTemplate(str: string, reg: RegExp, mid: MidParams):string {
   const res = str.replace(reg, match => {
     if (!mid.hasOwnProperty("marginpaddingLayout"))
       mid.marginpaddingLayout = new Set();
     let r = transformHalfPointClass(match);
     r = transformNegativeClass(r);
-    mid.marginpaddingLayout.add(r);
+    mid.marginpaddingLayout?.add(r);
     return r;
   });
   return res;
 }
 
-function getPositionClassValues(res) {
+function getPositionClassValues(res: string): string {
   const arr = res.split("-");
   const arrs = getTransformedBackArr(arr);
   let styles;
@@ -72,7 +73,7 @@ function getPositionClassValues(res) {
   return r;
 }
 
-function getTransformedBackArr(arr) {
+function getTransformedBackArr(arr: Array<string>): Array<string> {
   const r = [];
   for (let i = 0; i < arr.length; i++) {
     if (i === 0) {
@@ -86,7 +87,7 @@ function getTransformedBackArr(arr) {
   return r;
 }
 
-export function addMarginAndPaddingClass(str, mid) {
+export function addMarginAndPaddingClass(str: string, mid: MidParams): string {
   let r = str;
   const arr = ["marginpaddingLayout"];
   arr.forEach(item => {
@@ -109,7 +110,7 @@ export function addMarginAndPaddingClass(str, mid) {
  * @param {string} [position="margin"]
  * @return {RegExp}
  */
-function getPositionLayoutReg(position = "margin") {
+function getPositionLayoutReg(position = "margin"): RegExp {
   const regStr = `(?<=["'\\s])${position}((-|--)(\\d+|(\\d+\.\\d+))){1,4}(?=["'\\s])`;
   return new RegExp(regStr, "g");
 }
