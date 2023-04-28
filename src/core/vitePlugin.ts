@@ -1,9 +1,15 @@
-import { transformSFC,initCssUnit } from "./common";
+import { transformSFC, initCssUnit } from "./common";
+import type { PluginOptions } from "./types";
 
 const NEEDRELOADFILE = new Set();
 const VUEFILEREG = /.vue$/;
 
-export const vitePlugin = options => {
+interface HmrContext {
+  file: string;
+  read: () => string | Promise<string>;
+}
+
+export const vitePlugin = (options: PluginOptions) => {
   initCssUnit(options);
   return [pluginPre()];
 };
@@ -11,7 +17,7 @@ const pluginPre = () => {
   return {
     name: "vitePluginSimplehtmllayout",
     enforce: "pre",
-    transform(source, id) {
+    transform(source: string, id: string) {
       if (VUEFILEREG.test(id)) {
         let str = source;
         if (source.includes("simplehtmllayout")) {
@@ -19,15 +25,15 @@ const pluginPre = () => {
           NEEDRELOADFILE.add(id);
           return {
             code: str,
-            map: null, // 如果可行将提供 source map
+            map: null,
           };
         } else {
           NEEDRELOADFILE.delete(id);
         }
       }
     },
-    async handleHotUpdate(ctx) {
-      const { file, server, modules, read } = ctx;
+    async handleHotUpdate(ctx: HmrContext) {
+      const { file, read } = ctx;
       //! hmr core
       if (NEEDRELOADFILE.has(file)) {
         ctx.read = async () => {

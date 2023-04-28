@@ -1,14 +1,13 @@
 import { vitePlugin } from "./vitePlugin";
-import { transformSFC,initCssUnit } from "./common";
+import { transformSFC, initCssUnit } from "./common";
+import type { PluginOptions } from "./types";
 
-export default function transformVueFile(source) {
+export default function transformVueFile(source: string): string {
   if (!source.includes("simplehtmllayout")) return source;
-  const midParams = {};
-  initCssUnit(midParams, this?.query);  
+  initCssUnit(this?.query);
   return transformSFC(source);
 }
 
-export function vitePluginSimplehtmllayout(options) {
+export function vitePluginSimplehtmllayout(options:PluginOptions) {
   return vitePlugin(options);
 }
-

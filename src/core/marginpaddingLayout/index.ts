@@ -89,7 +89,7 @@ function getTransformedBackArr(arr: Array<string>): Array<string> {
 
 export function addMarginAndPaddingClass(str: string, mid: MidParams): string {
   let r = str;
-  const arr = ["marginpaddingLayout"];
+  const arr:Array<string> = ["marginpaddingLayout"];
   arr.forEach(item => {
     if (mid[item]?.size) {
       mid[item].forEach(it => {
