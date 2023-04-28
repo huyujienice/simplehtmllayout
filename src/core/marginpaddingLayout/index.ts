@@ -11,13 +11,16 @@ import type { MidParams } from "../types";
 
 const positionLayoutArr = ["margin", "padding"];
 
-export function transformMarginpaddingLayout(str: string, mid: MidParams = {}):string {
+export function transformMarginpaddingLayout(
+  str: string,
+  mid: MidParams = {},
+): string {
   let r = transformPositionLayoutTemplate(str, mid);
   r = transformPositionLayoutStyle(r, mid);
   return r;
 }
 
-function transformPositionLayoutTemplate(str: string, mid: MidParams):string {
+function transformPositionLayoutTemplate(str: string, mid: MidParams): string {
   const r = str.replace(templateAreaReg, m => {
     let r1 = m;
     positionLayoutArr.forEach(p => {
@@ -29,7 +32,7 @@ function transformPositionLayoutTemplate(str: string, mid: MidParams):string {
   return r;
 }
 
-function transformPositionLayoutStyle(str: string, mid: MidParams):string {
+function transformPositionLayoutStyle(str: string, mid: MidParams): string {
   const r = str.replace(styleAreaReg, m => {
     let r1 = addMarginAndPaddingClass(m, mid);
     return r1;
@@ -37,7 +40,11 @@ function transformPositionLayoutStyle(str: string, mid: MidParams):string {
   return r;
 }
 
-function handleMatchRegTemplate(str: string, reg: RegExp, mid: MidParams):string {
+function handleMatchRegTemplate(
+  str: string,
+  reg: RegExp,
+  mid: MidParams,
+): string {
   const res = str.replace(reg, match => {
     if (!mid.hasOwnProperty("marginpaddingLayout"))
       mid.marginpaddingLayout = new Set();
@@ -89,7 +96,7 @@ function getTransformedBackArr(arr: Array<string>): Array<string> {
 
 export function addMarginAndPaddingClass(str: string, mid: MidParams): string {
   let r = str;
-  const arr:Array<string> = ["marginpaddingLayout"];
+  const arr: Array<string> = ["marginpaddingLayout"];
   arr.forEach(item => {
     if (mid[item]?.size) {
       mid[item].forEach(it => {
