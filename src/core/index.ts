@@ -2,12 +2,12 @@ import { vitePlugin } from "./vitePlugin";
 import { transformSFC, initCssUnit } from "./common";
 import type { PluginOptions } from "./types";
 
-export default function transformVueFile(source: string): string {
+export default function transformVueFile(this: any, source: string): string {
   if (!source.includes("simplehtmllayout")) return source;
   initCssUnit(this?.query);
   return transformSFC(source);
 }
 
-export function vitePluginSimplehtmllayout(options:PluginOptions) {
+export function vitePluginSimplehtmllayout(options: PluginOptions) {
   return vitePlugin(options);
 }

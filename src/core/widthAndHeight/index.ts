@@ -57,8 +57,9 @@ export function addWidthAndHeightClass(str: string, mid: MidParams): string {
   let r = str;
   const arr = ["widthStyleSet", "heightStyleSet"];
   arr.forEach(item => {
-    if (mid[item]?.size) {
-      mid[item].forEach(it => {
+    const arrItem: Set<string> | undefined = mid[item];
+    if (arrItem?.size) {
+      arrItem.forEach(it => {
         const res = getWidthAndHeightClassValues(it);
         r = `${r}\n${res}\n`;
       });

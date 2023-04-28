@@ -98,8 +98,9 @@ export function addMarginAndPaddingClass(str: string, mid: MidParams): string {
   let r = str;
   const arr: Array<string> = ["marginpaddingLayout"];
   arr.forEach(item => {
-    if (mid[item]?.size) {
-      mid[item].forEach(it => {
+    const arrItem: Set<string> | undefined = mid[item];
+    if (arrItem?.size) {
+      arrItem.forEach(it => {
         const res = getPositionClassValues(it);
         r = `${r}\n${res}\n`;
       });
