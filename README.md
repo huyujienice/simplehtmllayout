@@ -153,18 +153,12 @@ module.exports = {
 2.手动在 vue.config.js 中添加相关插件
 
 ```
-import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { vitePluginSimplehtmllayout } from "simplehtmllayout";
 
 export default defineConfig({
   plugins: [vitePluginSimplehtmllayout(), vue()],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
 });
 ```
 
